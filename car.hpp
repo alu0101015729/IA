@@ -2,19 +2,13 @@
 #define CAR_HPP
 
 class car{
-private:
-  int i;
-  int j;
 public:
-  car(){
-      i=0;
-      j=0;
-  }
-  car(int x,int y){
-      i=x;
-      j=y;
-  }
+  car(){}
   ~car(){}
+  int mov_este(int x);
+  int mov_norte(int x);
+  int mov_oeste(int x);
+  int mov_sur(int x);
 };
 
 #endif // CAR_HPP
