@@ -1,16 +1,15 @@
 #include"busqueda.hpp"
 
-busqueda::busqueda(){}
+busqueda::busqueda(){
+    std::cout << "tamaño filas:";
+    std::cin >> M;
+    std::cout << "tamaño columnas:";
+    std::cin >> N;
+    map mapa(M,N);
 
-
-void busqueda::adicionarNodoAListaAbierta(nodo nodo){
- int indice = 0;
- float costo = nodo.costeTotal;
- while ((listaAbierta->size() > indice) && (costo < listaAbierta[indice].CosteTotal)){
-  indice++;
- }
- listaAbierta->push_back(nodo);
 }
+
+
 
 std::vector<nodo> busqueda::encontrarCamino(int x,int y){
     std::pair<int,int> posTileInicial;
@@ -27,80 +26,103 @@ std::vector<nodo> busqueda::encontrarCamino(int x,int y){
     nodo *nodoInicial = new nodo(NULL, nodoFinal, posTileInicial.first,posTileInicial.second, 0);
 
     // se adiciona el nodo inicial
-    adicionarNodoAListaAbierta(*nodoInicial);
-    while (listaAbierta->size() > 0){
-     //   nodo nodoActual = listaAbierta[listaAbierta->size() - 1]; error no se cual es
-        // si es el nodo Final
-        if (nodoActual.esIgual(*nodoFinal)){
-            List<Vector2> mejorCamino = new List<Vector2>();
-            while (nodoActual != null){
-                mejorCamino.Insert(0, nodoActual.Posicion);
-                nodoActual = nodoActual.NodoPadre;
+    listaAbierta->push_back(*nodoInicial);
+    nodo nodoActual = listaAbierta->front();
+    float coste=999999;
+    nodo *var = new nodo(NULL,NULL,NULL,NULL,NULL);
+    while(nodoFinal->esIgual(nodoActual)){
+        listaCerrada->push_back(nodoActual);
+        encontrarNodosAdyacentes(nodoActual,nodoFinal);
+        for(std::vector<nodo>::iterator it = listaAbierta->begin() ; it != listaAbierta->end(); ++it){
+            *var=*it;
+            var->Calcularcosto();
+            if(var->costeTotal< coste){
+                coste=nodoActual.costeTotal;
+                nodoActual=*var;
             }
-            //return mejorCamino;
+
         }
-        listaAbierta.Remove(nodoActual);
+
     }
 }
 
 
-private List<Nodo> encontrarNodosAdyacentes(Nodo nodoActual, Nodo nodoFinal)
-{
-List<Nodo> nodosAdyacentes = new List<Nodo>();
-Int32 X = nodoActual.GrillaX;
-Int32 Y = nodoActual.GrillaY;
-Boolean arribaIzquierda = true;
-Boolean arribaDerecha = true;
-Boolean abajoIzquierda = true;
-Boolean abajoDerecha = true;
+std::vector<nodo> busqueda::encontrarNodosAdyacentes(nodo nodoActual, nodo* nodoFinal){
+
+bool Izquierda = true;
+bool Derecha = true;
+bool Abajo = true;
+bool Arriba = true;
 
 //Izquierda
-if ((X > 0) && (!motor.Mapa.tileMapLayers[0].obtenerTile(X - 1, Y).Colision))
-{
- nodosAdyacentes.Add(new Nodo(nodoActual, nodoFinal, new Vector2(X - 1, Y), costoIrDerecho + nodoActual.costoG));
+if(nodoActual.i > 0){
+    std::vector<std::pair<int,int>>::iterator it1= mapa.get_obstacles().begin() ;
+    while(it1!=mapa.get_obstacles().end() ){
+        std::pair<int,int> it=*it1;
+        if((it.first==nodoActual.i-1)&&(it.second==nodoActual.j)){
+            Izquierda=false;
+        }
+    }
 }
-else
-{
- arribaIzquierda = false;
- abajoIzquierda = false;
-}
+else{
+    Izquierda=false;
+    }
+if(Izquierda==true){
+         nodo var(&nodoActual,nodoFinal,nodoActual.i-1,nodoActual.j,nodoActual.costeTotal);
+         listaAbierta->push_back(var);
+    }
+
 
 //Derecha
-if ((X < motor.Mapa.NumXTiles - 1) && (!motor.Mapa.tileMapLayers[0].obtenerTile(X + 1, Y).Colision))
-{
- nodosAdyacentes.Add(new Nodo(nodoActual, nodoFinal,
- new Vector2(X + 1, Y), costoIrDerecho + nodoActual.costoG));
+if(nodoActual.i < mapa.get_M()){
+    std::vector<std::pair<int,int>>::iterator it1= mapa.get_obstacles().begin() ;
+    while(it1!=mapa.get_obstacles().end() ){
+        std::pair<int,int> it=*it1;
+        if((it.first==nodoActual.i+1)&&(it.second==nodoActual.j)){
+            Derecha=false;
+        }
+    }
 }
-else
-{
- arribaDerecha = false;
- abajoDerecha = false;
+else{
+    Derecha=false;
 }
-
+if(Derecha==true){
+    nodo var(&nodoActual,nodoFinal,nodoActual.i+1,nodoActual.j,nodoActual.costeTotal);
+    listaAbierta->push_back(var);
+    }
 //Arriba
-if ((Y > 0) && (!motor.Mapa.tileMapLayers[0].obtenerTile(X, Y - 1).Colision))
-{
- nodosAdyacentes.Add(new Nodo(nodoActual, nodoFinal,
- new Vector2(X, Y - 1), costoIrDerecho + nodoActual.costoG));
+if(nodoActual.j > 0){
+    std::vector<std::pair<int,int>>::iterator it1= mapa.get_obstacles().begin() ;
+    while(it1!=mapa.get_obstacles().end() ){
+        std::pair<int,int> it=*it1;
+        if((it.second==nodoActual.j-1)&&(it.first==nodoActual.i)){
+            Arriba=false;
+        }
+    }
 }
-else
-{
- arribaIzquierda = false;
- arribaDerecha = false;
+else{
+    Arriba=false;
 }
-
+if(Arriba==true){
+    nodo var(&nodoActual,nodoFinal,nodoActual.i,nodoActual.j-1,nodoActual.costeTotal);
+    listaAbierta->push_back(var);
+}
 // Abajo
-if ((Y < motor.Mapa.NumYTiles - 1) && (!motor.Mapa.tileMapLayers[0].obtenerTile(X, Y + 1).Colision))
-{
- nodosAdyacentes.Add(new Nodo(nodoActual, nodoFinal,
- new Vector2(X, Y + 1), costoIrDerecho + nodoActual.costoG));
+if(nodoActual.j > mapa.get_N()){
+    std::vector<std::pair<int,int>>::iterator it1= mapa.get_obstacles().begin() ;
+    while(it1!=mapa.get_obstacles().end() ){
+        std::pair<int,int> it=*it1;
+        if((it.second==nodoActual.j+1)&&(it.first==nodoActual.i)){
+            Abajo=false;
+        }
+    }
 }
-else
-{
- abajoIzquierda = false;
- abajoDerecha = false;
+else{
+    Abajo=false;
+}
+if(Abajo==true){
+    nodo var(&nodoActual,nodoFinal,nodoActual.i,nodoActual.j+1,nodoActual.costeTotal);
+    listaAbierta->push_back(var);
+    }
 }
 
- return nodosAdyacentes;
- }
-}

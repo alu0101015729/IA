@@ -21,11 +21,11 @@ void map::handmade_obst(){
     do{
         std::cout<<"Cuantos obstaculos quieres:";
         std::cin>>obstaculos;
-        if(obstaculos >= map_.size()-2){
+        if(obstaculos >= M_*N_-2){
             std::cout << "Nº de obstaculos iadecuado. Tenga en cuenta pos. inicio y final. Máximo: " <<  map_.size()-2 << std::endl;
         }
 
-    }while(obstaculos >= map_.size()-2);
+    }while(obstaculos >= M_*N_-2);
     for(int i=1;i<=obstaculos;i++){
         std::pair<int,int> obs;
         std::cout << "Coordenada x:";
@@ -40,7 +40,7 @@ void map::random_obst(){
     int obstaculos=0,m=0,n=0;
     std::pair<int,int> coordenadas;
     std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(0, map_.size()-2);
+    std::uniform_int_distribution<int> distribution(0, N_*M_-2);
     std::uniform_int_distribution<int> horizonte(0, N_);
     std::uniform_int_distribution<int> vertical(0, M_);
     obstaculos=distribution(generator);
@@ -74,5 +74,23 @@ void map::write(std::ostream& os) const{
   }
 }
 
+void map::pos_M(int m){
+    M_=m;
+}
 
+void map::pos_N(int n){
+    N_=n;
+}
+
+int map::get_M(){
+    return M_;
+}
+
+int map::get_N(){
+    return N_;
+}
+
+std::vector<std::pair<int,int>> map::get_obstacles(){
+    return obstacles;
+}
 

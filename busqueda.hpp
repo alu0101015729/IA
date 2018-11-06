@@ -8,14 +8,16 @@
 class busqueda{
     private:
         int costoIrDerecho = 1;
+        int N,M;
         std::vector<nodo> *listaAbierta = new std::vector<nodo>();
         std::vector<nodo> *listaCerrada = new std::vector<nodo>();
+        map mapa;
     public:
         busqueda();
         void adicionarNodoAListaAbierta(nodo nodo);
         std::vector<nodo> encontrarCamino(int x,int y);
     private:
-        std::vector<nodo> encontrarNodosAdyacentes(nodo nodoActual, nodo nodoFinal);
+        std::vector<nodo> encontrarNodosAdyacentes(nodo nodoActual, nodo *nodoFinal);
 };
 
 #endif // BUSQUEDA_HPP

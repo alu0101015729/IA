@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.7.1, 2018-11-03T11:37:14. -->
+<!-- Written by QtCreator 4.7.1, 2018-11-04T16:08:58. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -290,8 +290,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">CarAutomatic</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/Alejandro/Documents/Tercero/Inteligencia Artificial/CarAutomatic/CarAutomatic.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">CarAutomatic2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/Alejandro/Documents/Tercero/Inteligencia Artificial/Car Automatic/IA/CarAutomatic.pro</value>
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">CarAutomatic.pro</value>
