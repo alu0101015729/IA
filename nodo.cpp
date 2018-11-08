@@ -19,5 +19,15 @@ bool nodo::esIgual(nodo Nodo){
  return ((i== Nodo.i)&&(j==Nodo.j));
 }
 
+nodo nodo::igualar(nodo Nodo,nodo Nodo1){
+    Nodo1=Nodo;
+    return Nodo1;
+}
+
+nodo nodo::getnodopadre(){
+    return *NodoPadre;
+}
+
+
 
 

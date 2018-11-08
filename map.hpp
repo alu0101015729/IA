@@ -16,7 +16,7 @@
 #endif // MAP_HPP
 
 
-class map {
+class map{
 
 private:
 
@@ -40,6 +40,7 @@ public:
     void write(std::ostream& os) const;
     int get_N();
     int get_M();
+    std::vector<std::pair<int,int>> get_obstacles();
 
 
 };

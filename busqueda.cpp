@@ -6,7 +6,7 @@ busqueda::busqueda(){
     std::cout << "tamaño columnas:";
     std::cin >> N;
     map mapa(M,N);
-
+    mapa.random_obst();
 }
 
 
@@ -29,20 +29,66 @@ std::vector<nodo> busqueda::encontrarCamino(int x,int y){
     listaAbierta->push_back(*nodoInicial);
     nodo nodoActual = listaAbierta->front();
     float coste=999999;
-    nodo *var = new nodo(NULL,NULL,NULL,NULL,NULL);
-    while(nodoFinal->esIgual(nodoActual)){
+    nodo var;
+    nodo var1;
+    while(nodoFinal->esIgual(nodoActual)==false){
+        std::cout << "hola\n";
         listaCerrada->push_back(nodoActual);
+        for(std::vector<nodo>::iterator it1 = listaAbierta->begin();it1 != listaAbierta->end();it1++){
+            var1=*it1;
+            if(var1.esIgual(nodoActual)){
+                listaAbierta->erase(it1);
+                break;}
+        }
         encontrarNodosAdyacentes(nodoActual,nodoFinal);
         for(std::vector<nodo>::iterator it = listaAbierta->begin() ; it != listaAbierta->end(); ++it){
-            *var=*it;
-            var->Calcularcosto();
-            if(var->costeTotal< coste){
+            var=*it;
+            var.Calcularcosto();
+            if(var.costeTotal< coste){
                 coste=nodoActual.costeTotal;
-                nodoActual=*var;
+                nodoActual=var;
             }
 
         }
 
+    }
+    while(nodoInicial->esIgual(nodoActual)==false){
+        int i=0;
+        var=nodoActual.getnodopadre();
+        camino[i].first=var.i;
+        camino[i].second=var.j;
+        nodoActual=var;
+
+    }
+}
+
+std::ostream busqueda::write(std::ostream& os){
+    std::vector<std::pair<int,int>> map=mapa.get_obstacles();
+    std::vector<std::pair<int,int>>::iterator it;
+    bool imprime;
+    int k=0;
+    for(int i=0;i<=mapa.get_M();i++){
+        for(int j=0;j<=mapa.get_N();j++){
+            imprime=false;
+            for(it=map.begin();it!=map.end();it++){
+                if((it[k].first==i)&&(it[k].second==j)){
+                    os << "X ";
+                    imprime=true;
+                }
+                k++;
+            }
+            k=0;
+            for(it=camino.begin();it!=camino.end();it++){
+                if((it[k].first==i)&&(it[k].second==j)){
+                    os << "S ";
+                    imprime=true;
+                }
+            }
+            if(imprime==false){
+                os << "0 ";
+            }
+        }
+        os << std::endl;
     }
 }
 

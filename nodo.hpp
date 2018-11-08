@@ -7,8 +7,6 @@ class nodo{
 private:
     nodo* NodoPadre;
     nodo* NodoFinal;
-
-
     float costeG;
 public:
     int i;
@@ -17,10 +15,13 @@ public:
     nodo(nodo* nodopadre, nodo* nodofinal,int x,int y, float costo);
     float Calcularcosto();
     bool esIgual(nodo Nodo);
+    nodo getnodopadre();
+    nodo igualar(nodo Nodo,nodo Nodo1);
 
     float costeTotal;
 
 };
+
 
 
 
