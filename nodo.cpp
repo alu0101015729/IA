@@ -15,9 +15,7 @@ float nodo::Calcularcosto(){
  return (i - NodoFinal->i)*(i - NodoFinal->i) + (j - NodoFinal->j)*(j - NodoFinal->j);
 }
 
-bool nodo::esIgual(nodo Nodo){
- return ((i== Nodo.i)&&(j==Nodo.j));
-}
+
 
 nodo nodo::igualar(nodo Nodo,nodo Nodo1){
     Nodo1=Nodo;

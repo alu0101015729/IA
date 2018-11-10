@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
   busqueda bus;
-  bus.encontrarCamino(10,15);
+  bus.encontrarCamino(5,5);
   bus.write(cout);
 
 

@@ -22,7 +22,7 @@ private:
 
     // Vector que simula matriz.
     std::vector <std::pair<int, int>> map_;
-    int N_, M_;
+    int M_, N_;
 
 
 public:

@@ -19,8 +19,11 @@ public:
     nodo igualar(nodo Nodo,nodo Nodo1);
 
     float costeTotal;
-
 };
+
+/*bool operator==(nodo A,nodo B){
+    return A==B;
+}*/
 
 
 
