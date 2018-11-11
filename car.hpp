@@ -2,6 +2,8 @@
 #define CAR_HPP
 #include<ostream>
 
+using namespace std;
+
 class car{
 private:
     int x;

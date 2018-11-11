@@ -1,26 +1,27 @@
 #include"busqueda.hpp"
 
 busqueda::busqueda(){
-    std::cout << "tamaño filas:";
-    std::cin >> M;
-    std::cout << "tamaño columnas:";
-    std::cin >> N;
+    costoIrDerecho = 1;
+    cout << "tamaño filas:";
+    cin >> M;
+    cout << "tamaño columnas:";
+    cin >> N;
     map mapa(M,N);
     mapa.handmade_obst();
 }
 
 
 
-std::vector<nodo> busqueda::encontrarCamino(int x,int y){
-    std::pair<int,int> posTileInicial;
+void busqueda::encontrarCamino(int x,int y){
+    pair<int,int> posTileInicial;
     posTileInicial.first=0;
     posTileInicial.second=0;
-    std::pair<int,int> posTileFinal;
+    pair<int,int> posTileFinal;
     posTileFinal.first=x;
     posTileFinal.second=y;
 
-    nodo nodoFinal(NULL, NULL, posTileFinal.first,posTileFinal.second, 0);
-    nodo nodoInicial(NULL, &nodoFinal, posTileInicial.first,posTileInicial.second, 0);
+    nodo nodoFinal(nullptr, nullptr, posTileFinal.first,posTileFinal.second, 0);
+    nodo nodoInicial(nullptr, &nodoFinal, posTileInicial.first,posTileInicial.second, 0);
 
     // se adiciona el nodo inicial
     listaAbierta.push_back(nodoInicial);
@@ -29,7 +30,7 @@ std::vector<nodo> busqueda::encontrarCamino(int x,int y){
     while(!esIgual(nodoActual,nodoFinal)){
         listaCerrada.push_back(nodoActual);
         encontrarNodosAdyacentes(nodoActual,nodoFinal);
-        for(std::vector<nodo>::iterator it1 = listaAbierta.begin();it1 != listaAbierta.end();it1++){
+        for(vector<nodo>::iterator it1 = listaAbierta.begin();it1 != listaAbierta.end();it1++){
              if(esIgual(*it1,nodoActual)){
                 listaAbierta.erase(it1);
                 }
@@ -42,9 +43,8 @@ std::vector<nodo> busqueda::encontrarCamino(int x,int y){
             }
         }
     }
-    std::cout << "no ha entrado\n";
     while(esIgual(nodoActual,nodoInicial)==false){
-        int i=0;
+        unsigned int i=0;
         nodo var=nodoActual.getnodopadre();
         camino[i].first=var.i;
         camino[i].second=var.j;
@@ -53,13 +53,13 @@ std::vector<nodo> busqueda::encontrarCamino(int x,int y){
     }
 }
 
-std::ostream busqueda::write(std::ostream& os){
-    std::vector<std::pair<int,int>> map=mapa.get_obstacles();
-    std::vector<std::pair<int,int>>::iterator it;
+ostream& busqueda::write(ostream& os){
+    vector<pair<int,int> > map=mapa.get_obstacles();
+    vector<pair<int,int> >::iterator it;
     bool imprime;
     int k=0;
-    for(int i=0;i<=mapa.get_M();i++){
-        for(int j=0;j<=mapa.get_N();j++){
+    for(int i=0;i<=mapa.get_N();i++){
+        for(int j=0;j<=mapa.get_M();j++){
             imprime=false;
             for(it=map.begin();it!=map.end();it++){
                 if((it[k].first==i)&&(it[k].second==j)){
@@ -79,12 +79,13 @@ std::ostream busqueda::write(std::ostream& os){
                 os << "0 ";
             }
         }
-        os << std::endl;
+        os << endl;
     }
+    return os;
 }
 
 
-std::vector<nodo> busqueda::encontrarNodosAdyacentes(nodo nodoActual, nodo nodoFinal){
+void busqueda::encontrarNodosAdyacentes(nodo nodoActual, nodo nodoFinal){
 
 bool Izquierda = true;
 bool Derecha = true;
@@ -93,13 +94,11 @@ bool Arriba = true;
 
 //Izquierda
 if(nodoActual.i > 0){
-    std::vector<std::pair<int,int>>::iterator it1= mapa.get_obstacles().begin() ;
-    while(it1!=mapa.get_obstacles().end() ){
-        std::pair<int,int> it=*it1;
+    for(vector<pair<int,int> >::iterator it1= obstaculos.begin();it1!=obstaculos.end();it1++){
+        pair<int,int> it=*it1;
         if((it.first==nodoActual.i-1)&&(it.second==nodoActual.j)){
             Izquierda=false;
         }
-        it1++;
     }
 }
 else{
@@ -113,9 +112,9 @@ if(Izquierda==true){
 
 //Derecha
 if(nodoActual.i < mapa.get_M()){
-    std::vector<std::pair<int,int>>::iterator it1= mapa.get_obstacles().begin() ;
+    vector<pair<int,int> >::iterator it1= mapa.get_obstacles().begin() ;
     while(it1!=mapa.get_obstacles().end() ){
-        std::pair<int,int> it=*it1;
+        pair<int,int> it=*it1;
         if((it.first==nodoActual.i+1)&&(it.second==nodoActual.j)){
             Derecha=false;
         }
@@ -131,9 +130,9 @@ if(Derecha==true){
     }
 //Arriba
 if(nodoActual.j > 0){
-    std::vector<std::pair<int,int>>::iterator it1= mapa.get_obstacles().begin() ;
+    vector<pair<int,int> >::iterator it1= mapa.get_obstacles().begin() ;
     while(it1!=mapa.get_obstacles().end() ){
-        std::pair<int,int> it=*it1;
+        pair<int,int> it=*it1;
         if((it.second==nodoActual.j-1)&&(it.first==nodoActual.i)){
             Arriba=false;
         }
@@ -149,9 +148,9 @@ if(Arriba==true){
 }
 // Abajo
 if(nodoActual.j < mapa.get_N()){
-    std::vector<std::pair<int,int>>::iterator it1= mapa.get_obstacles().begin() ;
+    vector<pair<int,int> >::iterator it1= mapa.get_obstacles().begin() ;
     while(it1!=mapa.get_obstacles().end() ){
-        std::pair<int,int> it=*it1;
+        pair<int,int> it=*it1;
         if((it.second==nodoActual.j+1)&&(it.first==nodoActual.i)){
             Abajo=false;
         }

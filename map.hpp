@@ -11,36 +11,25 @@
 #include <ostream>
 #include<utility>
 
-
-
-#endif // MAP_HPP
-
+using namespace std;
 
 class map{
-
 private:
-
-    // Vector que simula matriz.
-    std::vector <std::pair<int, int>> map_;
     int M_, N_;
-
-
+     std::vector <std::pair<int, int> > obstacles;
 public:
-    std::vector <std::pair<int, int>> obstacles;
     map(){}
     map(int m, int n);
     ~map();
-
-    // Devuelve posicion real. i*M+j = posicion en el vector del par 'i,j' de la matriz)
-    int get_pos(std::pair<int, int> pos_xy);
+    int get_pos(pair<int, int> pos_xy);
     void handmade_obst();
     void random_obst();
     void pos_N(int n);
     void pos_M(int m);
-    void write(std::ostream& os) const;
+    ostream& write(ostream& os);
     int get_N();
     int get_M();
-    std::vector<std::pair<int,int>> get_obstacles();
-
-
+    vector<pair<int,int> > get_obstacles();
 };
+
+#endif // MAP_HPP

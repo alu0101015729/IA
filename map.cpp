@@ -19,30 +19,30 @@ int map::get_pos(std::pair<int, int> pos_xy)
 void map::handmade_obst(){
     int obstaculos=0;
     do{
-        std::cout<<"Cuantos obstaculos quieres:";
-        std::cin>>obstaculos;
+        cout<<"Cuantos obstaculos quieres:";
+        cin>>obstaculos;
         if(obstaculos >= M_*N_-2){
-            std::cout << "Nº de obstaculos iadecuado. Tenga en cuenta pos. inicio y final. Máximo: " <<  map_.size()-2 << std::endl;
+            cout << "Nº de obstaculos iadecuado. Tenga en cuenta pos. inicio y final. Máximo: " <<  M_*N_-2 << std::endl;
         }
 
     }while(obstaculos >= M_*N_-2);
     for(int i=1;i<=obstaculos;i++){
-        std::pair<int,int> obs;
-        std::cout << "Coordenada x:";
-        std::cin>> obs.first;
-        std::cout << "Coordenada y:";
-        std::cin>> obs.second;
+        pair<int,int> obs;
+        cout << "Coordenada x:";
+        cin>> obs.first;
+        cout << "Coordenada y:";
+        cin>> obs.second;
         obstacles.push_back(obs);
     }
 }
 
 void map::random_obst(){
     int obstaculos=0,m=0,n=0;
-    std::pair<int,int> coordenadas;
-    std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(0, N_*M_-2);
-    std::uniform_int_distribution<int> horizonte(0, N_);
-    std::uniform_int_distribution<int> vertical(0, M_);
+    pair<int,int> coordenadas;
+    default_random_engine generator;
+    uniform_int_distribution<int> distribution(0, N_*M_-2);
+    uniform_int_distribution<int> horizonte(0, N_);
+    uniform_int_distribution<int> vertical(0, M_);
     obstaculos=distribution(generator);
     for(int i=0;i<=obstaculos;i++){
         m=vertical(generator);
@@ -56,12 +56,12 @@ void map::random_obst(){
 // Necesito lista obstaculos = vector obstaculos
 //Problemas: Revisar obstaculos cada vez q se vaya a imprimir casilla
 //
-void map::write(std::ostream& os) const{
+ostream& map::write(std::ostream& os){
   //std::vector<std::pair<int,int>>::iterator it;
   for(auto it=obstacles.begin();it != obstacles.end();it++){
       for(int i=0;i<=M_;i++){
           for(int j=0;j<=N_;j++){
-              std::pair<int,int> coor=std::make_pair(i,j);
+              pair<int,int> coor=make_pair(i,j);
               if(*it==coor){
                   //os << "\E[0;31m" << "X" << "\E[00m" << " ";
                   os << "X ";
@@ -72,6 +72,7 @@ void map::write(std::ostream& os) const{
           }
       }
   }
+  return os;
 }
 
 void map::pos_M(int m){

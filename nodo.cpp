@@ -6,7 +6,7 @@ nodo::nodo(nodo* nodopadre, nodo* nodofinal,int x,int y, float costo){
     i=x;
     j=y;
     costeG = costo;
-    if (NodoFinal != NULL){
+    if (NodoFinal != nullptr){
         costeTotal = costeG + Calcularcosto();
     }
 }
