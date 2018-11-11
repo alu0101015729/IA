@@ -28,15 +28,15 @@ void map::handmade_obst(){
     }while(obstaculos >= M_*N_-2);
     for(int i=1;i<=obstaculos;i++){
         pair<int,int> obs;
-        cout << "Coordenada x:";
-        cin>> obs.first;
         cout << "Coordenada y:";
+        cin>> obs.first;
+        cout << "Coordenada x:";
         cin>> obs.second;
         obstacles.push_back(obs);
     }
 }
 
-void map::random_obst(){
+/*void map::random_obst(){
     int obstaculos=0,m=0,n=0;
     pair<int,int> coordenadas;
     default_random_engine generator;
@@ -51,29 +51,12 @@ void map::random_obst(){
         coordenadas.second=n;
         obstacles.push_back(coordenadas);
     }
-}
+}*/
 //Construcción de rejilla. Necesito N y M = vector posiciones
 // Necesito lista obstaculos = vector obstaculos
 //Problemas: Revisar obstaculos cada vez q se vaya a imprimir casilla
 //
-ostream& map::write(std::ostream& os){
-  //std::vector<std::pair<int,int>>::iterator it;
-  for(auto it=obstacles.begin();it != obstacles.end();it++){
-      for(int i=0;i<=M_;i++){
-          for(int j=0;j<=N_;j++){
-              pair<int,int> coor=make_pair(i,j);
-              if(*it==coor){
-                  //os << "\E[0;31m" << "X" << "\E[00m" << " ";
-                  os << "X ";
-              }
-              else{
-                  os << "O ";
-              }
-          }
-      }
-  }
-  return os;
-}
+
 
 void map::pos_M(int m){
     M_=m;
@@ -91,7 +74,7 @@ int map::get_N(){
     return N_;
 }
 
-std::vector<std::pair<int,int>> map::get_obstacles(){
+vector<pair<int,int>> map::get_obstacles(){
     return obstacles;
 }
 

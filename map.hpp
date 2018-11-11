@@ -23,10 +23,9 @@ public:
     ~map();
     int get_pos(pair<int, int> pos_xy);
     void handmade_obst();
-    void random_obst();
+    //void random_obst();
     void pos_N(int n);
     void pos_M(int m);
-    ostream& write(ostream& os);
     int get_N();
     int get_M();
     vector<pair<int,int> > get_obstacles();
