@@ -1,7 +1,8 @@
 #include"nodo.hpp"
 
-nodo::nodo(nodo* nodopadre, nodo* nodofinal,int x,int y, float costo){
-    NodoPadre = nodopadre;
+nodo::nodo(int padrex,int padrey, nodo* nodofinal,int x,int y, float costo){
+    pair<int,int> fle=make_pair(padrex,padrey);
+    NodoPadre=fle;
     NodoFinal = nodofinal;
     i=x;
     j=y;
@@ -22,9 +23,11 @@ nodo nodo::igualar(nodo Nodo,nodo Nodo1){
     return Nodo1;
 }
 
-nodo nodo::getnodopadre(){
-    return *NodoPadre;
+pair<int,int> nodo::getnodopadre(){
+    return NodoPadre;
 }
+
+
 
 
 

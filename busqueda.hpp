@@ -14,6 +14,7 @@ class busqueda{
         vector<nodo> listaAbierta;
         vector<nodo> listaCerrada;
         vector<pair<int,int> > obstaculos;
+        vector<pair<int,int> > camino;
         map mapa;
 
     public:
@@ -21,8 +22,10 @@ class busqueda{
         void encontrarCamino(int x,int y);
         ostream& write(ostream& os);
         void encontrarNodosAdyacentes(nodo nodoActual, nodo nodoFinal);
-        vector<pair<int,int> > camino;
         bool esIgual(nodo,nodo);
+        bool estaCerrada(nodo A);
+        bool estaAbierta(pair<int,int> A);
+        nodo estaCerrada(pair<int,int> A);
     private:
 
 

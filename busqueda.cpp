@@ -10,7 +10,30 @@ busqueda::busqueda(){
     mapa.handmade_obst();
 }
 
+bool busqueda::estaCerrada(nodo A){
+    for(vector<nodo>::iterator it=listaCerrada.begin();it!=listaCerrada.end();it++){
+        if(esIgual(*it,A)){
+            return true;
+        }
+    }
+    return false;
+}
+bool busqueda::estaAbierta(pair<int,int> A){
+    for(vector<nodo>::iterator it=listaAbierta.begin();it!=listaAbierta.end();it++){
+        if((A.first==it->i)&&(A.second==it->j)){
+            return true;
+        }
+    }
+    return false;
+}
 
+nodo busqueda::estaCerrada(pair<int,int> A){
+    for(vector<nodo>::iterator it=listaCerrada.begin();it!=listaCerrada.end();it++){
+        if((A.first==it->i)&&(A.second==it->j)){
+            return *it;
+        }
+    }
+}
 
 void busqueda::encontrarCamino(int x,int y){
     pair<int,int> posTileInicial;
@@ -20,37 +43,37 @@ void busqueda::encontrarCamino(int x,int y){
     posTileFinal.first=x;
     posTileFinal.second=y;
 
-    nodo nodoFinal(nullptr, nullptr, posTileFinal.first,posTileFinal.second, 0);
-    nodo nodoInicial(nullptr, &nodoFinal, posTileInicial.first,posTileInicial.second, 0);
+    nodo nodoFinal(NULL,NULL,nullptr, posTileFinal.first,posTileFinal.second, 0);
+    nodo nodoInicial(NULL,NULL,&nodoFinal, posTileInicial.first,posTileInicial.second, 0);
 
     // se adiciona el nodo inicial
     listaAbierta.push_back(nodoInicial);
     nodo nodoActual = nodoInicial;
-    float coste=999999;
     while(!esIgual(nodoActual,nodoFinal)){
+        float coste=999999;
         listaCerrada.push_back(nodoActual);
         encontrarNodosAdyacentes(nodoActual,nodoFinal);
         for(vector<nodo>::iterator it1 = listaAbierta.begin();it1 != listaAbierta.end();it1++){
-             if(esIgual(*it1,nodoActual)){
-                listaAbierta.erase(it1);
-                }
-             else{
                 it1->Calcularcosto();
-                if(it1->costeTotal< coste){
+                if((it1->costeTotal< coste)&&(estaCerrada(*it1)==false)&&(esIgual(*it1,nodoActual)==false)){
                     coste=nodoActual.costeTotal;
                     nodoActual=*it1;
                 }
             }
         }
-    }
+    listaCerrada.push_back(nodoActual);
+    cout << nodoActual.i << " " << nodoActual.j << endl;
+    pair<int,int> foo1 = make_pair(nodoActual.i,nodoActual.j);
+    camino.push_back(foo1);
     while(esIgual(nodoActual,nodoInicial)==false){
-        unsigned int i=0;
-        nodo var=nodoActual.getnodopadre();
-        camino[i].first=var.i;
-        camino[i].second=var.j;
+       // nodo var=nodoActual.getnodopadre();
+       pair<int,int> foo = make_pair(nodoActual.getnodopadre().first,nodoActual.getnodopadre().second);
+        //camino[i].first=var.i;
+        camino.push_back(foo);
+        nodo var=estaCerrada(foo);
         nodoActual=var;
-
     }
+
 }
 
 ostream& busqueda::write(ostream& os){
@@ -58,8 +81,8 @@ ostream& busqueda::write(ostream& os){
     vector<pair<int,int> >::iterator it;
     bool imprime;
     int k=0;
-    for(int i=0;i<=mapa.get_N();i++){
-        for(int j=0;j<=mapa.get_M();j++){
+    for(int i=0;i<M;i++){
+        for(int j=0;j<N;j++){
             imprime=false;
             for(it=map.begin();it!=map.end();it++){
                 if((it[k].first==i)&&(it[k].second==j)){
@@ -96,7 +119,7 @@ bool Arriba = true;
 if(nodoActual.i > 0){
     for(vector<pair<int,int> >::iterator it1= obstaculos.begin();it1!=obstaculos.end();it1++){
         pair<int,int> it=*it1;
-        if((it.first==nodoActual.i-1)&&(it.second==nodoActual.j)){
+        if((it.first==nodoActual.i-1)&&(it.second==nodoActual.j)&&(estaAbierta(it)==true)){
             Izquierda=false;
         }
     }
@@ -105,7 +128,7 @@ else{
     Izquierda=false;
     }
 if(Izquierda==true){
-         nodo var(&nodoActual,&nodoFinal,nodoActual.i-1,nodoActual.j,nodoActual.costeTotal);
+         nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i-1,nodoActual.j,nodoActual.costeTotal);
          listaAbierta.push_back(var);
     }
 
@@ -115,7 +138,7 @@ if(nodoActual.i < mapa.get_M()){
     vector<pair<int,int> >::iterator it1= mapa.get_obstacles().begin() ;
     while(it1!=mapa.get_obstacles().end() ){
         pair<int,int> it=*it1;
-        if((it.first==nodoActual.i+1)&&(it.second==nodoActual.j)){
+        if((it.first==nodoActual.i+1)&&(it.second==nodoActual.j)&&(estaAbierta(it)==true)){
             Derecha=false;
         }
         it1++;
@@ -125,7 +148,9 @@ else{
     Derecha=false;
 }
 if(Derecha==true){
-    nodo var(&nodoActual,&nodoFinal,nodoActual.i+1,nodoActual.j,nodoActual.costeTotal);
+    cout << nodoActual.i << " " << nodoActual.j <<endl;
+    nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i+1,nodoActual.j,nodoActual.costeTotal);
+    //cout << var.getnodopadre().i << " " << var.getnodopadre().j << endl;
     listaAbierta.push_back(var);
     }
 //Arriba
@@ -133,7 +158,7 @@ if(nodoActual.j > 0){
     vector<pair<int,int> >::iterator it1= mapa.get_obstacles().begin() ;
     while(it1!=mapa.get_obstacles().end() ){
         pair<int,int> it=*it1;
-        if((it.second==nodoActual.j-1)&&(it.first==nodoActual.i)){
+        if((it.second==nodoActual.j-1)&&(it.first==nodoActual.i)&&(estaAbierta(it)==true)){
             Arriba=false;
         }
         it1++;
@@ -143,7 +168,7 @@ else{
     Arriba=false;
 }
 if(Arriba==true){
-    nodo var(&nodoActual,&nodoFinal,nodoActual.i,nodoActual.j-1,nodoActual.costeTotal);
+    nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i,nodoActual.j-1,nodoActual.costeTotal);
     listaAbierta.push_back(var);
 }
 // Abajo
@@ -151,7 +176,7 @@ if(nodoActual.j < mapa.get_N()){
     vector<pair<int,int> >::iterator it1= mapa.get_obstacles().begin() ;
     while(it1!=mapa.get_obstacles().end() ){
         pair<int,int> it=*it1;
-        if((it.second==nodoActual.j+1)&&(it.first==nodoActual.i)){
+        if((it.second==nodoActual.j+1)&&(it.first==nodoActual.i)&&(estaAbierta(it)==true)){
             Abajo=false;
         }
         it1++;
@@ -161,7 +186,7 @@ else{
     Abajo=false;
 }
 if(Abajo==true){
-    nodo var(&nodoActual,&nodoFinal,nodoActual.i,nodoActual.j+1,nodoActual.costeTotal);
+    nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i,nodoActual.j+1,nodoActual.costeTotal);
     listaAbierta.push_back(var);
     }
 }

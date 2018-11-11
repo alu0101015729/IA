@@ -7,17 +7,18 @@ using namespace std;
 
 class nodo{
 private:
-    nodo* NodoPadre;
+    pair<int,int> NodoPadre;
     nodo* NodoFinal;
     float costeG;
 public:
     int i;
     int j;
     nodo(){}
-    nodo(nodo* nodopadre, nodo* nodofinal,int x,int y, float costo);
+    nodo(int,int, nodo* nodofinal,int x,int y, float costo);
     float Calcularcosto();
-    nodo getnodopadre();
+    pair<int,int> getnodopadre();
     nodo igualar(nodo Nodo,nodo Nodo1);
+    nodo* getnodofinal(){return NodoFinal;}
 
     float costeTotal;
 };
