@@ -84,14 +84,14 @@ void busqueda::encontrarCamino(int x,int y){
 }
 
 ostream& busqueda::write(ostream& os){
-    vector<pair<int,int> > map=mapa.get_obstacles();
+
         vector<pair<int,int> >::iterator it;
         bool imprime;
         int k=0;
         for(int i=0;i<M;i++){
             for(int j=0;j<N;j++){
                 imprime=false;
-                for(it=map.begin();it!=map.end();it++){
+                for(it=obstaculos.begin();it!=obstaculos.end();it++){
                     if((it[k].first==i)&&(it[k].second==j)){
                         os << "X ";
                         imprime=true;
