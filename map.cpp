@@ -36,14 +36,14 @@ void map::handmade_obst(){
     }
 }
 
-/*void map::random_obst(){
+void map::random_obst(){
     int obstaculos=0,m=0,n=0;
     pair<int,int> coordenadas;
     default_random_engine generator;
-    uniform_int_distribution<int> distribution(0, N_*M_-2);
+    cout << "¿cuantos obstaculos quieres?:";
+    cin >> obstaculos;
     uniform_int_distribution<int> horizonte(0, N_);
     uniform_int_distribution<int> vertical(0, M_);
-    obstaculos=distribution(generator);
     for(int i=0;i<=obstaculos;i++){
         m=vertical(generator);
         n=horizonte(generator);
@@ -51,7 +51,7 @@ void map::handmade_obst(){
         coordenadas.second=n;
         obstacles.push_back(coordenadas);
     }
-}*/
+}
 //Construcción de rejilla. Necesito N y M = vector posiciones
 // Necesito lista obstaculos = vector obstaculos
 //Problemas: Revisar obstaculos cada vez q se vaya a imprimir casilla

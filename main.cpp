@@ -7,8 +7,13 @@ using namespace std;
 
 int main()
 {
+  int x=0,y=0;
   busqueda bus;
-  bus.encontrarCamino(5,5);
+  cout << "coordenada x del final:";
+  cin >> x;
+  cout << "coordenada y del final:";
+  cin >> y;
+  bus.encontrarCamino(x,y);
   bus.write(cout);
   return 0;
 }

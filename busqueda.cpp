@@ -71,7 +71,6 @@ void busqueda::encontrarCamino(int x,int y){
             }
         }
     listaCerrada.push_back(nodoActual);
-   // cout << nodoActual.i << " " << nodoActual.j << endl;
     pair<int,int> foo1 = make_pair(nodoActual.i,nodoActual.j);
     camino.push_back(foo1);
     while(esIgual(nodoActual,nodoInicial)==false){
@@ -99,14 +98,15 @@ ostream& busqueda::write(ostream& os){
                     k++;
                 }
                 k=0;
-
-                for(it=camino.begin();it!=camino.end();it++){
-                    if((it[k].first==i)&&(it[k].second==j)){
-                        os << "S ";
-                        imprime=true;
+                if(imprime != true){
+                    for(it=camino.begin();it!=camino.end();it++){
+                        if((it[k].first==i)&&(it[k].second==j)){
+                            os << "S ";
+                            imprime=true;
+                        }
                     }
                 }
-                if(imprime==false){
+                if(imprime!=true){
                     os << "0 ";
                 }
             }
@@ -120,24 +120,36 @@ void busqueda::encontrarNodosAdyacentes(nodo nodoActual, nodo nodoFinal){
 
     //Izquierda
     if(nodoActual.i > 0){
+        pair<int,int> foo=make_pair(nodoActual.i-1,nodoActual.j);
+        if(estaAbierta(foo)==false){
              nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i-1,nodoActual.j,nodoActual.costeTotal);
              listaAbierta.push_back(var);
         }
+    }
     //Derecha
     if(nodoActual.i < M){
-        nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i+1,nodoActual.j,nodoActual.costeTotal);
-        listaAbierta.push_back(var);
+        pair<int,int> foo=make_pair(nodoActual.i+1,nodoActual.j);
+        if(estaAbierta(foo)==false){
+            nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i+1,nodoActual.j,nodoActual.costeTotal);
+            listaAbierta.push_back(var);
         }
+    }
     //Arriba
     if(nodoActual.j > 0){
-        nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i,nodoActual.j-1,nodoActual.costeTotal);
-        listaAbierta.push_back(var);
+        pair<int,int> foo=make_pair(nodoActual.i,nodoActual.j-1);
+        if(estaAbierta(foo)==false){
+            nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i,nodoActual.j-1,nodoActual.costeTotal);
+            listaAbierta.push_back(var);
+        }
     }
     // Abajo
 
     if(nodoActual.j <N){
         nodo var(nodoActual.i,nodoActual.j,&nodoFinal,nodoActual.i,nodoActual.j+1,nodoActual.costeTotal);
-        listaAbierta.push_back(var);
+        pair<int,int> foo=make_pair(nodoActual.i-1,nodoActual.j+1);
+        if(estaAbierta(foo)==false){
+            listaAbierta.push_back(var);
+        }
     }
 }
 

@@ -7,13 +7,19 @@ nodo::nodo(int padrex,int padrey, nodo* nodofinal,int x,int y, float costo){
     i=x;
     j=y;
     costeG = costo;
+    heuristica=2;
     if (NodoFinal != nullptr){
         costeTotal = costeG + Calcularcosto();
     }
 }
 
 float nodo::Calcularcosto(){
- return (i - NodoFinal->i)*(i - NodoFinal->i) + (j - NodoFinal->j)*(j - NodoFinal->j);
+    if(heuristica==1){
+        return (i - NodoFinal->i)*(i - NodoFinal->i) + (j - NodoFinal->j)*(j - NodoFinal->j);
+    }
+    else{
+        return( abs(i-NodoFinal->i) + abs(j-NodoFinal->j));
+    }
 }
 
 

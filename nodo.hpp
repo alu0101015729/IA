@@ -10,6 +10,7 @@ private:
     pair<int,int> NodoPadre;
     nodo* NodoFinal;
     float costeG;
+    int heuristica;
 public:
     int i;
     int j;
