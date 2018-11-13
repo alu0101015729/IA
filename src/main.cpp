@@ -1,7 +1,6 @@
 #include <iostream>
-#include "car.hpp"
-#include "map.hpp"
-#include "busqueda.hpp"
+#include "../include/map.hpp"
+#include "../include/busqueda.hpp"
 
 using namespace std;
 

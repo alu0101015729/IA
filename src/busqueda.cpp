@@ -1,4 +1,4 @@
-#include"busqueda.hpp"
+#include"../include/busqueda.hpp"
 
 busqueda::busqueda(){
     costoIrDerecho = 1;
@@ -7,7 +7,7 @@ busqueda::busqueda(){
     cout << "tamaño columnas:";
     cin >> N;
     map mapa(M,N);
-    mapa.handmade_obst();
+    mapa.random_obst();
     obstaculos=mapa.get_obstacles();
 }
 
@@ -90,25 +90,30 @@ ostream& busqueda::write(ostream& os){
         for(int i=0;i<M;i++){
             for(int j=0;j<N;j++){
                 imprime=false;
+                pair<int,int> foo=make_pair(i,j);
                 for(it=obstaculos.begin();it!=obstaculos.end();it++){
-                    if((it[k].first==i)&&(it[k].second==j)){
-                        os << "X ";
+                    if(foo==*it){
+                        os << "\E[0;34m" << "X" << "\E[00m";
                         imprime=true;
+                        break;
                     }
                     k++;
                 }
                 k=0;
                 if(imprime != true){
                     for(it=camino.begin();it!=camino.end();it++){
-                        if((it[k].first==i)&&(it[k].second==j)){
-                            os << "S ";
+                        if(foo==*it){
+                            os << "\E[0;31m" << "S" << "\E[00m";
+
                             imprime=true;
+                            break;
                         }
                     }
                 }
                 if(imprime!=true){
-                    os << "0 ";
+                    os << "0";
                 }
+                cout << " ";
             }
             os << endl;
         }

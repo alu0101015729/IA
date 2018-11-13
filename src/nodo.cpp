@@ -1,4 +1,4 @@
-#include"nodo.hpp"
+#include"../include/nodo.hpp"
 
 nodo::nodo(int padrex,int padrey, nodo* nodofinal,int x,int y, float costo){
     pair<int,int> fle=make_pair(padrex,padrey);
