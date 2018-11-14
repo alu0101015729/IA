@@ -28,6 +28,7 @@ class busqueda{
         bool estaAbierta(pair<int,int> A);
         nodo estaCerrada(pair<int,int> A);
         vector<nodo> retornar_listaAbierta(){ return listaAbierta;}
+        vector<nodo> retornar_listaCerrada(){ return listaCerrada;}
         float retornar_coste(){return costeT;}
     private:
 
