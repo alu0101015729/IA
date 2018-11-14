@@ -72,6 +72,7 @@ void busqueda::encontrarCamino(int x,int y){
         }
     listaCerrada.push_back(nodoActual);
     pair<int,int> foo1 = make_pair(nodoActual.i,nodoActual.j);
+    costeT=nodoActual.costeTotal;
     camino.push_back(foo1);
     while(esIgual(nodoActual,nodoInicial)==false){
         pair<int,int> foo = make_pair(nodoActual.getnodopadre().first,nodoActual.getnodopadre().second);
@@ -117,6 +118,8 @@ ostream& busqueda::write(ostream& os){
             }
             os << endl;
         }
+
+
     return os;
 }
 

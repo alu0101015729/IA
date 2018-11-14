@@ -10,6 +10,7 @@ using namespace std;
 class busqueda{
     private:
         int costoIrDerecho;
+        float costeT;
         int N,M;
         vector<nodo> listaAbierta;
         vector<nodo> listaCerrada;
@@ -26,6 +27,8 @@ class busqueda{
         bool estaCerrada(nodo A);
         bool estaAbierta(pair<int,int> A);
         nodo estaCerrada(pair<int,int> A);
+        vector<nodo> retornar_listaAbierta(){ return listaAbierta;}
+        float retornar_coste(){return costeT;}
     private:
 
 
