@@ -7,7 +7,7 @@ nodo::nodo(int padrex,int padrey, nodo* nodofinal,int x,int y, float costo){
     i=x;
     j=y;
     costeG = costo;
-    heuristica=2;
+    heuristica=1;                  //para cambiar de heuristica cambiar el valor a 1
     if (NodoFinal != nullptr){
         costeTotal = costeG + Calcularcosto();
     }

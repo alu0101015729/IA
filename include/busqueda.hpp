@@ -30,6 +30,7 @@ class busqueda{
         vector<nodo> retornar_listaAbierta(){ return listaAbierta;}
         vector<nodo> retornar_listaCerrada(){ return listaCerrada;}
         float retornar_coste(){return costeT;}
+        vector<pair<int,int> > retornar_camino(){return camino;}
     private:
 
 

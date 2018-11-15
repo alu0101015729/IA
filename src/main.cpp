@@ -23,5 +23,6 @@ int main()
     cout << "Coste Total del camino:" << bus.retornar_coste() << endl;
     cout << "Numero de nodos generados:" << bus.retornar_listaAbierta().size() << endl;
     cout << "Numero de nodos explorados:" << bus.retornar_listaCerrada().size() << endl;
+    cout << "Numero de nodos:" << bus.retornar_camino().size() << endl;
     return 0;
 }
